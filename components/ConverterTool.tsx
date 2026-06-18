@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { Upload, Link, Copy, Download, ArrowRight, AlertCircle, Check, Clock, Trash2, Hash, Settings } from "lucide-react"
+import { Upload, Link, Copy, Download, ArrowRight, AlertCircle, Clock, Trash2, Hash, Settings } from "lucide-react"
 import { toast } from "sonner"
 import { convertFile, convertUrl, getApiUrl, setApiUrl } from "@/lib/api"
 import { useTranslation } from "@/lib/i18n"
@@ -179,6 +179,25 @@ export function ConverterTool() {
                 )}
               </div>
             )}
+
+            <div className="border-t border-hairline">
+              <button onClick={() => setShowSettings(!showSettings)}
+                className="flex items-center gap-1.5 w-full px-4 py-2 text-xs font-medium text-ink/50 hover:text-ink transition-colors">
+                <Settings className="size-3.5" /> Backend URL
+              </button>
+              {showSettings && (
+                <div className="px-3 pb-3 flex gap-2">
+                  <input type="text" value={backendUrl}
+                    onChange={(e) => setBackendUrl(e.target.value)}
+                    className="flex-1 px-3 py-1.5 border border-hairline rounded text-xs font-mono focus:outline-none focus:border-cobalt transition-colors"
+                    placeholder="http://localhost:8000" />
+                  <button onClick={() => { setApiUrl(backendUrl); setShowSettings(false) }}
+                    className="px-3 py-1.5 bg-ink text-paper text-xs font-medium rounded hover:brightness-110 transition-all">
+                    Save
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* RIGHT — Preview pane */}
