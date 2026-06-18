@@ -4,7 +4,16 @@ import { useState } from "react"
 import { ChevronDown, Menu, X } from "lucide-react"
 import { useTranslation } from "@/lib/i18n"
 
-const langs = [{ code: "en" as const, label: "English" }, { code: "zh-CN" as const, label: "简体中文" }]
+const langs = [
+  { code: "en" as const, label: "English" },
+  { code: "zh-CN" as const, label: "简体中文" },
+  { code: "zh-TW" as const, label: "繁體中文" },
+  { code: "ja" as const, label: "日本語" },
+  { code: "fr" as const, label: "Français" },
+  { code: "es" as const, label: "Español" },
+  { code: "de" as const, label: "Deutsch" },
+  { code: "ko" as const, label: "한국어" },
+]
 
 export function Header() {
   const { lang, setLang, t } = useTranslation()
@@ -13,7 +22,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-paper/90 backdrop-blur-sm border-b border-hairline">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+      <div className="section-container flex items-center justify-between h-14">
         <a href="/" className="flex items-center gap-2">
           <div className="size-7 rounded bg-ink flex items-center justify-center">
             <span className="text-paper text-xs font-mono font-semibold">M</span>
@@ -29,7 +38,7 @@ export function Header() {
           <div className="relative">
             <button onClick={() => setLangOpen(!langOpen)}
               className="flex items-center gap-1 text-ink/70 hover:text-ink transition-colors text-sm">
-              {lang === "en" ? "EN" : "中文"} <ChevronDown className="size-3" />
+              {{ "en": "EN", "zh-CN": "简体", "zh-TW": "繁體", "ja": "日", "fr": "FR", "es": "ES", "de": "DE", "ko": "KO" }[lang]} <ChevronDown className="size-3" />
             </button>
             {langOpen && (
               <div className="absolute right-0 mt-1 w-36 bg-white border border-hairline rounded-lg shadow-sm py-1 z-50">

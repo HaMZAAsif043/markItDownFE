@@ -14,16 +14,11 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: "Inter", "Public Sans", system-ui, sans-serif;
-  background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(78, 205, 196, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(26, 83, 92, 0.03) 0%, transparent 50%);
-  background-attachment: fixed;
 }
 
 .font-display {
   font-family: "Fraunces", "Lora", Georgia, serif;
 }
-
 .font-mono {
   font-family: "IBM Plex Mono", "JetBrains Mono", "Fira Code", monospace;
 }
@@ -34,12 +29,16 @@ body {
 
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 .cursor-blink { animation: blink 0.8s step-end infinite; }
-
 @keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 .animate-fade-up { animation: fade-up 0.4s ease-out; }
+@media (prefers-reduced-motion: reduce) { .cursor-blink, .animate-fade-up { animation: none; } }
 
-@media (prefers-reduced-motion: reduce) {
-  .cursor-blink, .animate-fade-up { animation: none; }
+.section-container {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 @theme inline {

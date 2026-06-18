@@ -7,7 +7,7 @@ export function HowItWorks() {
 
   return (
     <section id="how-it-works" className="scroll-mt-20 py-12 md:py-16 border-t border-hairline">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="section-container">
         <p className="font-mono text-xs text-marker tracking-wider uppercase mb-2">{t("how.eyebrow")}</p>
         <h2 className="font-display text-3xl md:text-4xl tracking-tight text-ink mb-10">{t("how.h2")}</h2>
 

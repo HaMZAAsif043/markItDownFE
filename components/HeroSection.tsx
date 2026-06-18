@@ -54,7 +54,7 @@ export function HeroSection() {
 
   return (
     <section className="pt-10 pb-12 md:pt-16 md:pb-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="section-container">
         <p className="font-mono text-xs text-marker tracking-wider uppercase mb-4">{t("hero.eyebrow")}</p>
         <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight text-ink max-w-3xl">{t("hero.h1")}</h1>
         <p className="mt-4 text-base md:text-lg text-ink/60 max-w-2xl leading-relaxed">{t("hero.sub")}</p>
