@@ -1,9 +1,9 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { Upload, Link, Copy, Download, ArrowRight, AlertCircle, Check, Clock, Trash2, Hash } from "lucide-react"
+import { Upload, Link, Copy, Download, ArrowRight, AlertCircle, Check, Clock, Trash2, Hash, Settings } from "lucide-react"
 import { toast } from "sonner"
-import { convertFile, convertUrl } from "@/lib/api"
+import { convertFile, convertUrl, getApiUrl, setApiUrl } from "@/lib/api"
 import { useTranslation } from "@/lib/i18n"
 import type { ConversionResult } from "@/lib/types"
 
@@ -33,6 +33,8 @@ export function ConverterTool() {
   const [error, setError] = useState("")
   const [history, setHistory] = useState<HistoryItem[]>([])
   const [showHistory, setShowHistory] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
+  const [backendUrl, setBackendUrl] = useState(getApiUrl())
   const dragRef = useRef<HTMLDivElement>(null)
   const fileRef = useRef<HTMLInputElement>(null)
 
