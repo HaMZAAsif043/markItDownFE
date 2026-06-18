@@ -179,7 +179,7 @@ export function ConverterTool() {
                 )}
               </div>
             )}
-
+{/* 
             <div className="border-t border-hairline">
               <button onClick={() => setShowSettings(!showSettings)}
                 className="flex items-center gap-1.5 w-full px-4 py-2 text-xs font-medium text-ink/50 hover:text-ink transition-colors">
@@ -197,7 +197,7 @@ export function ConverterTool() {
                   </button>
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
 
           {/* RIGHT — Preview pane */}
