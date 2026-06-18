@@ -16,9 +16,9 @@ const ibmPlexMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "MarkItDown — Convert any file to Markdown your AI can read",
+  title: "MarkItDown — From file to Markdown in one click",
   description:
-    "Turn DOCX, PDF, PPTX, XLSX, HTML, and more into clean Markdown. Free, open source, no account needed.",
+    "Drop a DOCX, PDF, PPTX, XLSX, HTML, or any file — get clean Markdown back. Free, open source, no account needed.",
   keywords: [
     "markitdown", "markdown converter", "pdf to markdown", "docx to markdown",
     "pptx to markdown", "xlsx to markdown", "html to markdown", "ai context",

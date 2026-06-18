@@ -3,11 +3,11 @@
 :root {
   --paper: #F7FFF7;
   --paper-alt: #EFF8EF;
-  --ink: #1A535C;
-  --cobalt: #4ECDC4;
-  --marker: #FFE66D;
+  --ink: #1E293B;
+  --cobalt: #7C3AED;
+  --marker: #A78BFA;
   --forest: #FF6B6B;
-  --hairline: #C8D6C8;
+  --hairline: #E2E8F0;
 }
 
 body {
@@ -44,9 +44,9 @@ body {
 @theme inline {
   --color-paper: #F7FFF7;
   --color-paper-alt: #EFF8EF;
-  --color-ink: #1A535C;
-  --color-cobalt: #4ECDC4;
-  --color-marker: #FFE66D;
+  --color-ink: #1E293B;
+  --color-cobalt: #7C3AED;
+  --color-marker: #A78BFA;
   --color-forest: #FF6B6B;
-  --color-hairline: #C8D6C8;
+  --color-hairline: #E2E8F0;
 }

@@ -12,10 +12,14 @@ export function setApiUrl(url: string) {
   localStorage.setItem(STORAGE_KEY, url)
 }
 
+function baseUrl() {
+  return getApiUrl().replace(/\/+$/, "")
+}
+
 export async function convertFile(file: File): Promise<ConversionResult> {
   const form = new FormData()
   form.append("file", file)
-  const res = await fetch(`${getApiUrl()}/convert`, { method: "POST", body: form })
+  const res = await fetch(`${baseUrl()}/convert`, { method: "POST", body: form })
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: res.statusText }))
     throw new Error(err.detail || "Conversion failed")
@@ -26,7 +30,7 @@ export async function convertFile(file: File): Promise<ConversionResult> {
 export async function convertUrl(url: string): Promise<ConversionResult> {
   const form = new FormData()
   form.append("url", url)
-  const res = await fetch(`${getApiUrl()}/convert`, { method: "POST", body: form })
+  const res = await fetch(`${baseUrl()}/convert`, { method: "POST", body: form })
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: res.statusText }))
     throw new Error(err.detail || "Conversion failed")

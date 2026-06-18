@@ -12,7 +12,7 @@ export function WhatItDoes() {
         <h2 className="font-display text-3xl md:text-4xl tracking-tight text-ink mb-6">{t("what.h2")}</h2>
         <p className="text-base text-ink/60 max-w-3xl leading-relaxed mb-6">{t("what.p")}</p>
         <ul className="space-y-3">
-          {[1, 2, 3, 4].map((n) => (
+          {[1, 2, 3, 4, 5].map((n) => (
             <li key={n} className="flex items-start gap-3 text-sm text-ink/70">
               <span className="mt-1.5 size-1.5 rounded-full bg-ink shrink-0" />
               <span>{t(`what.bullet${n}`)}</span>
