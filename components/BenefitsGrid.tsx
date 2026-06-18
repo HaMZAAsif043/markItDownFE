@@ -8,8 +8,10 @@ const icons = [Cpu, BookOpen, Edit, ArrowRightToLine, Search, WifiOff]
 export function BenefitsGrid() {
   const { t } = useTranslation()
 
+
+  
   return (
-    <section className="py-12 md:py-16 border-t border-hairline">
+    <section className ="py-12 md:py-16 border-t border-hairline">
       <div className="section-container">
         <p className="font-mono text-xs text-marker tracking-wider uppercase mb-2">{t("benefits.eyebrow")}</p>
         <h2 className="font-display text-3xl md:text-4xl tracking-tight text-ink mb-10">{t("benefits.h2")}</h2>
