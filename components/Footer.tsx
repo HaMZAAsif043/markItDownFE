@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslation } from "@/lib/i18n"
-
+import Image from "next/image"
 const useCaseLinks = [
   "PDF to Markdown", "PPT to Markdown", "DOC to Markdown",
   "Excel to Markdown", "HTML to Markdown", "CSV to Markdown",
@@ -18,13 +18,19 @@ export function FooterSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <div className="size-6 rounded bg-ink flex items-center justify-center">
-                <span className="text-paper text-[10px] font-mono font-semibold">M</span>
-              </div>
-              <span className="font-display text-base text-ink">{t("brand.name")}</span>
+             <a href="/" className="flex items-center gap-2">
+               <Image
+                 src="/logo2.png"
+                 width={142}
+                 height={80}
+                 alt="MarkItDown logo"
+                 className="object-contain"
+                 style={{ height: '80px', width: 'auto' }}
+               />
+             </a>
             </div>
             <p className="text-xs text-ink/40 leading-relaxed">{t("footer.desc")}</p>
-            <p className="text-xs text-ink/30 mt-3">hello@markitdown.pro</p>
+            {/* <p className="text-xs text-ink/30 mt-3">hello@markitdown.pro</p> */}
           </div>
 
           <div>

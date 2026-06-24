@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { ChevronDown, Menu, X } from "lucide-react"
 import { useTranslation } from "@/lib/i18n"
-
+import Image from 'next/image'
 const langs = [
   { code: "en" as const, label: "English" },
   { code: "zh-CN" as const, label: "简体中文" },
@@ -23,12 +23,16 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-paper/90 backdrop-blur-sm border-b border-hairline">
       <div className="section-container flex items-center justify-between h-14">
-        <a href="/" className="flex items-center gap-2">
-          <div className="size-7 rounded bg-ink flex items-center justify-center">
-            <span className="text-paper text-xs font-mono font-semibold">M</span>
-          </div>
-          <span className="font-display text-lg tracking-tight text-ink">{t("brand.name")}</span>
-        </a>
+<a href="/" className="flex items-center gap-2">
+  <Image
+    src="/logo2.png"
+    width={142}
+    height={80}
+    alt="MarkItDown logo"
+    className="object-contain"
+    style={{ height: '80px', width: 'auto' }}
+  />
+</a>
 
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <a href="#tool" className="text-ink/70 hover:text-ink transition-colors">{t("nav.convert")}</a>

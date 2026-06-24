@@ -16,13 +16,18 @@ const ibmPlexMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "MarkItDown — From file to Markdown in one click",
+  title: "MarkItDown - From file to Markdown in one click",
   description:
     "Drop a DOCX, PDF, PPTX, XLSX, HTML, or any file — get clean Markdown back. Free, open source, no account needed.",
   keywords: [
     "markitdown", "markdown converter", "pdf to markdown", "docx to markdown",
     "pptx to markdown", "xlsx to markdown", "html to markdown", "ai context",
   ],
+  icons: {
+    icon: "/favicon.ico",        // /public/favicon.ico
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png", // optional, for iOS
+  },
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
