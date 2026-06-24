@@ -1,8 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronDown, Menu, X } from "lucide-react"
+import { ChevronDown, Menu, X, Github } from "lucide-react"
 import { useTranslation } from "@/lib/i18n"
+import { ThemeToggle } from "@/components/ThemeProvider"
 import Image from 'next/image'
 const langs = [
   { code: "en" as const, label: "English" },
@@ -34,10 +35,14 @@ export function Header() {
   />
 </a>
 
-        <nav className="hidden md:flex items-center gap-6 text-sm">
+        <nav className="hidden md:flex items-center gap-5 text-sm">
           <a href="#tool" className="text-ink/70 hover:text-ink transition-colors">{t("nav.convert")}</a>
           <a href="#how-it-works" className="text-ink/70 hover:text-ink transition-colors">{t("nav.how")}</a>
           <a href="#faq" className="text-ink/70 hover:text-ink transition-colors">{t("nav.faq")}</a>
+          <a href="https://github.com/HaMZAAsif043/markItDownFE" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-ink/50 hover:text-ink transition-colors" aria-label="GitHub">
+            <Github className="size-4" />
+          </a>
+          <ThemeToggle />
 
           <div className="relative">
             <button onClick={() => setLangOpen(!langOpen)}
@@ -45,7 +50,7 @@ export function Header() {
               {{ "en": "EN", "zh-CN": "简体", "zh-TW": "繁體", "ja": "日", "fr": "FR", "es": "ES", "de": "DE", "ko": "KO" }[lang]} <ChevronDown className="size-3" />
             </button>
             {langOpen && (
-              <div className="absolute right-0 mt-1 w-36 bg-white border border-hairline rounded-lg shadow-sm py-1 z-50">
+              <div className="absolute right-0 mt-1 w-36 bg-card border border-hairline rounded-lg shadow-sm py-1 z-50">
                 {langs.map((l) => (
                   <button key={l.code} onClick={() => { setLang(l.code); setLangOpen(false) }}
                     className="w-full text-left px-3 py-1.5 text-sm text-ink/70 hover:text-ink hover:bg-paper transition-colors">

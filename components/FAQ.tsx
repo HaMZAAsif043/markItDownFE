@@ -17,7 +17,7 @@ export function FAQSection() {
 
         <div className="space-y-1">
           {Array.from({ length: count }, (_, i) => i + 1).map((n) => (
-            <div key={n} className="border border-hairline rounded-lg overflow-hidden bg-white">
+            <div key={n} className="border border-hairline rounded-lg overflow-hidden bg-card">
               <button onClick={() => setOpen(open === n ? null : n)}
                 className="w-full flex items-center justify-between px-5 py-4 text-left text-sm font-medium text-ink hover:bg-paper/50 transition-colors">
                 <span>{t(`faq.q${n}`)}</span>

@@ -9,6 +9,7 @@ declare module "lucide-react" {
   export const AlertCircle: Icon
   export const Check: Icon
   export const ChevronDown: Icon
+  export const ChevronLeft: Icon
   export const Menu: Icon
   export const X: Icon
   export const Plus: Icon
@@ -37,6 +38,15 @@ declare module "lucide-react" {
   export const Moon: Icon
   export const Monitor: Icon
   export const UploadIcon: Icon
+  export const BarChart3: Icon
+  export const ExternalLink: Icon
+  export const Cog: Icon
+  export const FileJson: Icon
+  export const FileType: Icon
+  export const FileSpreadsheet: Icon
+  export const Table: Icon
+  export const Zap: Icon
+  export const Code: Icon
 }
 
 declare module "sonner" {

@@ -1,5 +1,6 @@
 "use client"
 
+import { Github } from "lucide-react"
 import { useTranslation } from "@/lib/i18n"
 import Image from "next/image"
 const useCaseLinks: { name: string; href: string }[] = [
@@ -71,7 +72,10 @@ export function FooterSection() {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-hairline text-center">
+        <div className="mt-10 pt-6 border-t border-hairline flex flex-col items-center gap-3">
+          <a href="https://github.com/HaMZAAsif043/markItDownFE" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-ink/40 hover:text-ink transition-colors">
+            <Github className="size-4" /> View on GitHub
+          </a>
           <p className="font-mono text-[11px] text-ink/30">
             &copy; {new Date().getFullYear()} {t("brand.name")}. {t("footer.copyright")}
           </p>

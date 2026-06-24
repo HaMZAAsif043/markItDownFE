@@ -39,18 +39,18 @@ const sections = [
 
 export default function PrivacyPage() {
   return (
-    <main className="min-h-dvh bg-[#f0faf5]">
+    <main className="min-h-dvh bg-paper">
       <div className="max-w-3xl mx-auto px-6 py-24">
-        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#12203e] transition-colors mb-8">
+        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-ink/50 hover:text-ink transition-colors mb-8">
           <ChevronLeft className="size-4" /> Back to homepage
         </Link>
-        <p className="font-[family-name:var(--font-mono)] text-xs text-gray-400 uppercase tracking-wider mb-2">Last updated: June 2026</p>
-        <h1 className="font-[family-name:var(--font-fraunces)] text-4xl md:text-5xl tracking-tight text-[#12203e] mb-10">Privacy Policy</h1>
+        <p className="font-mono text-xs text-ink/30 uppercase tracking-wider mb-2">Last updated: June 2026</p>
+        <h1 className="font-display text-4xl md:text-5xl tracking-tight text-ink mb-10">Privacy Policy</h1>
         <div className="space-y-8">
           {sections.map((s) => (
             <div key={s.title}>
-              <h2 className="font-[family-name:var(--font-fraunces)] text-xl text-[#12203e] mb-2">{s.title}</h2>
-              <div className="font-[family-name:var(--font-inter)] text-gray-600 leading-relaxed text-sm md:text-base">{s.body}</div>
+              <h2 className="font-display text-xl text-ink mb-2">{s.title}</h2>
+              <div className="text-ink/60 leading-relaxed text-sm md:text-base">{s.body}</div>
             </div>
           ))}
         </div>

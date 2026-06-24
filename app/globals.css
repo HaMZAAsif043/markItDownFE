@@ -1,13 +1,26 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --paper: #F7FFF7;
   --paper-alt: #EFF8EF;
+  --card: #FFFFFF;
   --ink: #1E293B;
   --cobalt: #7C3AED;
   --marker: #A78BFA;
   --forest: #FF6B6B;
   --hairline: #E2E8F0;
+}
+
+.dark {
+  --paper: #0B1120;
+  --paper-alt: #131C31;
+  --card: #162033;
+  --ink: #E2E8F0;
+  --cobalt: #A78BFA;
+  --marker: #7C3AED;
+  --forest: #FF6B6B;
+  --hairline: #1E2A45;
 }
 
 body {
@@ -31,7 +44,9 @@ body {
 .cursor-blink { animation: blink 0.8s step-end infinite; }
 @keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 .animate-fade-up { animation: fade-up 0.4s ease-out; }
-@media (prefers-reduced-motion: reduce) { .cursor-blink, .animate-fade-up { animation: none; } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.animate-float { animation: float 3s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .cursor-blink, .animate-fade-up, .animate-float { animation: none; } }
 
 .section-container {
   max-width: 72rem;
@@ -42,11 +57,12 @@ body {
 }
 
 @theme inline {
-  --color-paper: #F7FFF7;
-  --color-paper-alt: #EFF8EF;
-  --color-ink: #1E293B;
-  --color-cobalt: #7C3AED;
-  --color-marker: #A78BFA;
-  --color-forest: #FF6B6B;
-  --color-hairline: #E2E8F0;
+  --color-paper: var(--paper);
+  --color-paper-alt: var(--paper-alt);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-cobalt: var(--cobalt);
+  --color-marker: var(--marker);
+  --color-forest: var(--forest);
+  --color-hairline: var(--hairline);
 }

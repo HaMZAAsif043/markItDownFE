@@ -13,7 +13,7 @@ export function WhyConvert() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="border border-hairline rounded-lg p-6 bg-white">
+            <div key={n} className="border border-hairline rounded-lg p-6 bg-card">
               <h3 className="font-display text-lg text-ink mb-2">{t(`why.card${n}.title`)}</h3>
               <p className="text-sm text-ink/60 leading-relaxed">{t(`why.card${n}.desc`)}</p>
             </div>

@@ -99,7 +99,7 @@ export function ConverterTool() {
       <div className="section-container">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
           {/* LEFT — Input panel */}
-          <div className={`bg-white border border-hairline rounded-lg shadow-sm self-start ${result ? "md:col-span-2" : "md:col-span-5"}`}>
+          <div className={`bg-card border border-hairline rounded-lg shadow-sm self-start ${result ? "md:col-span-2" : "md:col-span-5"}`}>
             <div className="flex border-b border-hairline">
               <button onClick={() => setInputMode("file")}
                 className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
@@ -204,13 +204,13 @@ export function ConverterTool() {
 
           {/* RIGHT — Preview pane */}
           {result && (
-          <div className="md:col-span-3 bg-white border border-hairline rounded-lg shadow-sm min-h-[400px] flex flex-col">
+          <div className="md:col-span-3 bg-card border border-hairline rounded-lg shadow-sm min-h-[400px] flex flex-col">
             <div className="flex items-center justify-between px-4 py-2.5 border-b border-hairline bg-paper-alt/50">
               <div className="flex items-center gap-1 bg-hairline/30 rounded-md p-0.5">
                 {(["preview", "raw"] as ViewMode[]).map((m) => (
                   <button key={m} onClick={() => setViewMode(m)}
                     className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
-                      viewMode === m ? "bg-white text-ink shadow-sm" : "text-ink/50 hover:text-ink/70"}`}>
+                      viewMode === m ? "bg-card text-ink shadow-sm" : "text-ink/50 hover:text-ink/70"}`}>
                     {m === "preview" ? t("tool.preview") : t("tool.raw")}
                   </button>
                 ))}

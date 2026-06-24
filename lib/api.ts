@@ -27,6 +27,14 @@ export async function convertFile(file: File): Promise<ConversionResult> {
   return res.json()
 }
 
+export async function fetchStats(): Promise<{ total_conversions: number }> {
+  try {
+    const res = await fetch(`${baseUrl()}/stats`, { signal: AbortSignal.timeout(5000) })
+    if (res.ok) return res.json()
+  } catch {}
+  return { total_conversions: 0 }
+}
+
 export async function convertUrl(url: string): Promise<ConversionResult> {
   const form = new FormData()
   form.append("url", url)
