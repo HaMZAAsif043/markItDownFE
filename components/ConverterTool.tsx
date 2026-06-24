@@ -22,6 +22,8 @@ function saveHistory(h: HistoryItem[]) {
   try { localStorage.setItem(HISTORY_KEY, JSON.stringify(h.slice(0, 10))) } catch {}
 }
 
+const MAX_FILE_SIZE = 4.5 * 1024 * 1024
+
 export function ConverterTool() {
   const { t } = useTranslation()
   const [inputMode, setInputMode] = useState<InputMode>("file")
@@ -49,6 +51,10 @@ export function ConverterTool() {
     setError("")
     if (inputMode === "file" && files.length === 0) { setError(t("tool.select")); return }
     if (inputMode === "url" && !url.trim()) { setError(t("tool.enterurl")); return }
+    if (inputMode === "file" && files[0]?.size > MAX_FILE_SIZE) {
+      setError(`File too large (max 4.5MB). Try a smaller file.`)
+      return
+    }
     setLoading(true)
     try {
       const source = inputMode === "file" ? files[0] : url.trim()
@@ -118,11 +124,11 @@ export function ConverterTool() {
                 <div ref={dragRef}
                   onDragOver={(e) => { e.preventDefault(); dragRef.current?.classList.add("border-cobalt", "bg-cobalt/5") }}
                   onDragLeave={() => dragRef.current?.classList.remove("border-cobalt", "bg-cobalt/5")}
-                  onDrop={(e) => { e.preventDefault(); dragRef.current?.classList.remove("border-cobalt", "bg-cobalt/5"); setFiles((prev) => [...prev, ...Array.from(e.dataTransfer.files)]) }}
+                  onDrop={(e) => { e.preventDefault(); dragRef.current?.classList.remove("border-cobalt", "bg-cobalt/5"); const dropped = Array.from(e.dataTransfer.files); const valid = dropped.filter(f => f.size <= MAX_FILE_SIZE); if (valid.length !== dropped.length) toast.error("Some files skipped (max 4.5MB)"); setFiles((prev) => [...prev, ...valid]) }}
                   onClick={() => fileRef.current?.click()}
                   className="border-2 border-dashed border-hairline rounded-lg p-6 text-center cursor-pointer hover:border-cobalt/40 transition-colors bg-paper/40">
                   <input ref={fileRef} type="file" multiple className="hidden" accept=".docx,.xlsx,.pptx,.pdf,.html,.csv,.json,.xml,.txt,.md,.ipynb"
-                    onChange={(e) => { if (e.target.files) setFiles((prev) => [...prev, ...Array.from(e.target.files!)]) }} />
+                    onChange={(e) => { if (e.target.files) { const selected = Array.from(e.target.files!).filter(f => f.size <= MAX_FILE_SIZE); if (selected.length !== e.target.files!.length) toast.error("Some files skipped (max 4.5MB)"); setFiles((prev) => [...prev, ...selected]) } }} />
                   <Upload className="size-7 mx-auto mb-2 text-ink/30" />
                   <p className="text-sm text-ink/70">{t("tool.drag")} <span className="text-cobalt underline underline-offset-2 cursor-pointer">{t("tool.click")}</span></p>
                   <p className="text-xs text-ink/40 mt-1 font-mono">DOCX · XLSX · PPTX · PDF · HTML · CSV · JSON · XML · TXT · MD · IPYNB</p>
