@@ -43,6 +43,7 @@ export function ConverterTool() {
   const words = result ? result.markdown.trim().split(/\s+/).length : 0
   const chars = result ? result.markdown.length : 0
   const lines = result ? result.markdown.split("\n").length : 0
+  const tokens = Math.ceil(chars / 4)
 
   const handleConvert = useCallback(async () => {
     setError("")
@@ -63,9 +64,10 @@ export function ConverterTool() {
     finally { setLoading(false) }
   }, [inputMode, files, url, history, t])
 
+  const [copied, setCopied] = useState(false)
   const handleCopy = useCallback(async () => {
-    if (!result) return; await navigator.clipboard.writeText(result.markdown); toast.success(t("tool.copied"))
-  }, [result, t])
+    if (!result) return; await navigator.clipboard.writeText(result.markdown); setCopied(true); setTimeout(() => setCopied(false), 2000)
+  }, [result])
 
   const handleDownload = useCallback(() => {
     if (!result) return
@@ -214,8 +216,8 @@ export function ConverterTool() {
                 ))}
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-[11px] text-ink/30 font-mono">{t("tool.stats", { w: words, c: chars, l: lines })}</span>
-                <button onClick={handleCopy} className="text-xs text-ink/50 hover:text-ink transition-colors flex items-center gap-1"><Copy className="size-3.5" /> {t("tool.copy")}</button>
+                <span className="text-[11px] text-ink/30 font-mono">~{tokens} tokens · {chars} characters</span>
+                <button onClick={handleCopy} className="text-xs text-ink/50 hover:text-ink transition-colors flex items-center gap-1"><Copy className="size-3.5" /> {copied ? "Copied!" : t("tool.copy")}</button>
                 <button onClick={handleDownload} className="text-xs text-ink/50 hover:text-ink transition-colors flex items-center gap-1"><Download className="size-3.5" /> {t("tool.download")}</button>
               </div>
             </div>

@@ -2,9 +2,19 @@
 
 import { useTranslation } from "@/lib/i18n"
 import Image from "next/image"
-const useCaseLinks = [
-  "PDF to Markdown", "PPT to Markdown", "DOC to Markdown",
-  "Excel to Markdown", "HTML to Markdown", "CSV to Markdown",
+const useCaseLinks: { name: string; href: string }[] = [
+  { name: "PDF to Markdown", href: "/convert/pdf-to-markdown" },
+  { name: "PPT to Markdown", href: "/convert/ppt-to-markdown" },
+  { name: "DOC to Markdown", href: "/convert/doc-to-markdown" },
+  { name: "Excel to Markdown", href: "/convert/excel-to-markdown" },
+  { name: "HTML to Markdown", href: "/convert/html-to-markdown" },
+  { name: "CSV to Markdown", href: "/convert/csv-to-markdown" },
+]
+
+const legalLinks: { name: string; href: string }[] = [
+  { name: "Privacy Policy", href: "/privacy" },
+  { name: "Terms of Service", href: "/terms" },
+  { name: "Cookie Policy", href: "/cookies" },
 ]
 
 const langList = ["English", "简体中文", "繁體中文", "日本語", "Français", "Español", "Deutsch", "한국어"]
@@ -36,8 +46,8 @@ export function FooterSection() {
           <div>
             <h4 className="font-mono text-[11px] text-ink/50 uppercase tracking-wider mb-3">{t("footer.legal")}</h4>
             <ul className="space-y-1.5">
-              {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((l) => (
-                <li key={l}><a href="#" className="text-xs text-ink/50 hover:text-ink transition-colors">{l}</a></li>
+              {legalLinks.map((l) => (
+                <li key={l.name}><a href={l.href} className="text-xs text-ink/50 hover:text-ink transition-colors">{l.name}</a></li>
               ))}
             </ul>
           </div>
@@ -46,7 +56,7 @@ export function FooterSection() {
             <h4 className="font-mono text-[11px] text-ink/50 uppercase tracking-wider mb-3">{t("footer.usecases")}</h4>
             <ul className="space-y-1.5">
               {useCaseLinks.map((u) => (
-                <li key={u}><a href="#" className="text-xs text-ink/50 hover:text-ink transition-colors">{u}</a></li>
+                <li key={u.name}><a href={u.href} className="text-xs text-ink/50 hover:text-ink transition-colors">{u.name}</a></li>
               ))}
             </ul>
           </div>
