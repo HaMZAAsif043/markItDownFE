@@ -1,6 +1,6 @@
 # F2: Safe Markdown preview and validated frontend boundaries
 
-Status: verified; draft PR pending. Started: 16 November 2026. Updated: 17 November 2026.
+Status: pr_open (draft). Started: 16 November 2026. Updated: 17 November 2026.
 
 ## Request and scope
 
@@ -59,4 +59,8 @@ Priority follow-ups: establish a clean repository-wide lint baseline and upgrade
 
 ## Publication and handoff
 
-Commit: pending. Draft PR: pending. No business-validation results are claimed.
+Implementation commit: `5910484` (`safe markdown preview and zod validation`).
+
+Draft PR: [#1 — frontend: validate conversion data and render Markdown safely](https://github.com/HaMZAAsif043/markItDownFE/pull/1).
+
+Branch: `fix/safe-preview-zod-validation`, pushed with upstream tracking. No merge or manual deployment has been performed. CI status must be checked against the current PR head rather than inferred from local passes. No business-validation results are claimed.
