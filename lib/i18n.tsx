@@ -16,6 +16,7 @@ const EN: Record<string, string> = {
   "tool.drag": "Drag a file here, or", "tool.click": "click to choose one",
   "tool.convert": "Convert", "tool.converting": "Converting...",
   "tool.preview": "Preview", "tool.raw": "Raw markdown",
+  "tool.preview.note": "Images are hidden in preview. Only HTTP, HTTPS, and email links are clickable. Raw Markdown is unchanged.",
   "tool.copy": "Copy", "tool.download": "Download .md",
   "tool.select": "Select a file first", "tool.enterurl": "Enter a URL first",
   "tool.copied": "Copied to clipboard", "tool.downloaded": "File downloaded", "tool.converted": "Converted",

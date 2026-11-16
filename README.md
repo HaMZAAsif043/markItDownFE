@@ -69,6 +69,43 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 
 ---
 
+## Frontend validation and preview
+
+API conversion responses, statistics, error payloads, and locally saved history
+are validated with Zod before use. Conversion types are inferred from the same
+schemas; TypeScript checks application code statically.
+
+The preview renders Markdown as React elements with GFM tables, nested lists,
+and fenced code. Raw HTML and images are omitted. Only absolute HTTP, HTTPS,
+and email links are clickable; relative document links have no reliable source
+base. Original Markdown is used for copying and downloading; the operating
+system may normalize clipboard line endings. This
+protects preview rendering; it does not establish extraction accuracy or secure
+the separate conversion backend.
+
+### Checks
+
+```bash
+npm ci
+npm run typecheck
+npm run lint
+npm run build
+npx playwright install chromium
+npm test
+```
+
+The Playwright runner starts the production server on `127.0.0.1:3100`, so build
+before running tests. It refuses to reuse an existing server at that address.
+Contract tests exercise invalid API payloads, structured errors, and history
+validation. Chromium tests exercise rendering safety, corrupt historical
+entries, and byte-for-byte Markdown downloads. Conversion API responses are
+mocked with synthetic data; these tests do not exercise MarkItDown extraction.
+
+The reviewed baseline has unrelated repository-wide lint errors and dependency
+advisories. See the [work item](./docs/work-items/F2-safe-preview-zod-validation.md)
+for the measured check results and remaining work; do not interpret a successful
+production build as a clean lint or security audit.
+
 ## 🏗️ Tech Stack
 
 - **Frontend:** [Next.js](https://nextjs.org), TypeScript

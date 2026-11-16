@@ -1,26 +1,17 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
-import { Upload, Link, Copy, Download, ArrowRight, AlertCircle, Clock, Trash2, Hash, Settings } from "lucide-react"
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react"
+import { Upload, Link, Copy, Download, ArrowRight, AlertCircle, Clock, Trash2 } from "lucide-react"
 import { toast } from "sonner"
-import { convertFile, convertUrl, getApiUrl, setApiUrl } from "@/lib/api"
+import { convertFile, convertUrl } from "@/lib/api"
+import { getHistorySnapshot, getServerHistorySnapshot, saveHistory, subscribeHistory } from "@/lib/history"
+import { MarkdownPreview } from "@/components/MarkdownPreview"
 import { useTranslation } from "@/lib/i18n"
 import type { ConversionResult } from "@/lib/types"
+import type { HistoryItem } from "@/lib/schemas"
 
 type InputMode = "file" | "url"
 type ViewMode = "preview" | "raw"
-
-interface HistoryItem {
-  id: string; markdown: string; filename: string; words: number; time: number
-}
-
-const HISTORY_KEY = "md-history"
-function loadHistory(): HistoryItem[] {
-  try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]") } catch { return [] }
-}
-function saveHistory(h: HistoryItem[]) {
-  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(h.slice(0, 10))) } catch {}
-}
 
 const MAX_FILE_SIZE = 4.5 * 1024 * 1024
 
@@ -33,18 +24,12 @@ export function ConverterTool() {
   const [result, setResult] = useState<ConversionResult | null>(null)
   const [viewMode, setViewMode] = useState<ViewMode>("preview")
   const [error, setError] = useState("")
-  const [history, setHistory] = useState<HistoryItem[]>([])
+  const history = useSyncExternalStore(subscribeHistory, getHistorySnapshot, getServerHistorySnapshot)
   const [showHistory, setShowHistory] = useState(false)
-  const [showSettings, setShowSettings] = useState(false)
-  const [backendUrl, setBackendUrl] = useState(getApiUrl())
   const dragRef = useRef<HTMLDivElement>(null)
   const fileRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => { setHistory(loadHistory()) }, [])
-
-  const words = result ? result.markdown.trim().split(/\s+/).length : 0
   const chars = result ? result.markdown.length : 0
-  const lines = result ? result.markdown.split("\n").length : 0
   const tokens = Math.ceil(chars / 4)
 
   const handleConvert = useCallback(async () => {
@@ -55,18 +40,17 @@ export function ConverterTool() {
       setError(`File too large (max 4.5MB). Try a smaller file.`)
       return
     }
+    setResult(null)
     setLoading(true)
     try {
-      const source = inputMode === "file" ? files[0] : url.trim()
-      const r = inputMode === "file" ? await convertFile(source as File) : await convertUrl(source as string)
+      const r = inputMode === "file" ? await convertFile(files[0]) : await convertUrl(url.trim())
       setResult(r)
-      const w = r.markdown.trim().split(/\s+/).length
+      const w = r.markdown.trim() ? r.markdown.trim().split(/\s+/).length : 0
       const entry: HistoryItem = { id: Date.now().toString(36), markdown: r.markdown, filename: r.filename, words: w, time: Date.now() }
       const updated = [entry, ...history].slice(0, 10)
-      setHistory(updated)
       saveHistory(updated)
       toast.success(t("tool.converted"))
-    } catch (e: any) { setError(e.message || "Conversion failed") }
+    } catch (e: unknown) { setError(e instanceof Error ? e.message : "Conversion failed") }
     finally { setLoading(false) }
   }, [inputMode, files, url, history, t])
 
@@ -90,7 +74,7 @@ export function ConverterTool() {
     toast.success(t("tool.loaded"))
   }, [t])
 
-  const clearHistory = useCallback(() => { setHistory([]); saveHistory([]) }, [])
+  const clearHistory = useCallback(() => { saveHistory([]) }, [])
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -166,10 +150,10 @@ export function ConverterTool() {
 
             {history.length > 0 && (
               <div className="border-t border-hairline">
-                <button onClick={() => setShowHistory(!showHistory)}
+                <button onClick={() => setShowHistory(!showHistory)} aria-expanded={showHistory}
                   className="flex items-center justify-between w-full px-4 py-2 text-xs font-medium text-ink/50 hover:text-ink transition-colors">
                   <span className="flex items-center gap-1.5"><Clock className="size-3.5" /> {t("tool.history")} ({history.length})</span>
-                  <span className="text-[10px]">{showHistory ? "▲" : "▼"}</span>
+                  <span aria-hidden="true" className="text-[10px]">{showHistory ? "▲" : "▼"}</span>
                 </button>
                 {showHistory && (
                   <div className="px-3 pb-3 space-y-1 max-h-40 overflow-auto">
@@ -187,25 +171,6 @@ export function ConverterTool() {
                 )}
               </div>
             )}
-{/* 
-            <div className="border-t border-hairline">
-              <button onClick={() => setShowSettings(!showSettings)}
-                className="flex items-center gap-1.5 w-full px-4 py-2 text-xs font-medium text-ink/50 hover:text-ink transition-colors">
-                <Settings className="size-3.5" /> Backend URL
-              </button>
-              {showSettings && (
-                <div className="px-3 pb-3 flex gap-2">
-                  <input type="text" value={backendUrl}
-                    onChange={(e) => setBackendUrl(e.target.value)}
-                    className="flex-1 px-3 py-1.5 border border-hairline rounded text-xs font-mono focus:outline-none focus:border-cobalt transition-colors"
-                    placeholder="http://localhost:8000" />
-                  <button onClick={() => { setApiUrl(backendUrl); setShowSettings(false) }}
-                    className="px-3 py-1.5 bg-ink text-paper text-xs font-medium rounded hover:brightness-110 transition-all">
-                    Save
-                  </button>
-                </div>
-              )}
-            </div> */}
           </div>
 
           {/* RIGHT — Preview pane */}
@@ -229,7 +194,10 @@ export function ConverterTool() {
             </div>
             <div className="p-5 flex-1 overflow-auto max-h-[600px]">
               {viewMode === "preview" ? (
-                <RenderedMarkdown text={result.markdown} />
+                <>
+                  <MarkdownPreview text={result.markdown} />
+                  <p className="mt-4 text-xs text-ink/40">{t("tool.preview.note")}</p>
+                </>
               ) : (
                 <pre className="font-mono text-sm text-ink/70 whitespace-pre-wrap">{result.markdown}</pre>
               )}
@@ -240,19 +208,4 @@ export function ConverterTool() {
       </div>
     </section>
   )
-}
-
-function RenderedMarkdown({ text }: { text: string }) {
-  const html = text
-    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-    .replace(/^### (.+)$/gm, "<h3 class='text-base font-semibold mt-4 mb-1 text-ink'>$1</h3>")
-    .replace(/^## (.+)$/gm, "<h2 class='text-lg font-semibold mt-5 mb-1.5 text-ink'>$1</h2>")
-    .replace(/^# (.+)$/gm, "<h1 class='text-xl font-bold mt-6 mb-2 text-ink'>$1</h1>")
-    .replace(/\*\*(.+?)\*\*/g, "<strong class='text-ink'>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>")
-    .replace(/`([^`]+)`/g, "<code class='bg-hairline/30 px-1 rounded text-cobalt text-xs font-mono'>$1</code>")
-    .replace(/^- (.+)$/gm, "<li class='ml-4 list-disc'>$1</li>")
-    .replace(/^(\d+)\. (.+)$/gm, "<li class='ml-4 list-decimal'>$1. $2</li>")
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "<a href='$2' class='text-cobalt underline' target='_blank'>$1</a>")
-    .replace(/\n\n/g, "</p><p>")
-  return <div dangerouslySetInnerHTML={{ __html: `<p>${html}</p>` }} />
 }
