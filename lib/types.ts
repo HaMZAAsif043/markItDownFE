@@ -1,9 +1,4 @@
-export interface ConversionResult {
-  markdown: string
-  filename: string
-  source?: string
-  size?: number
-}
+export type { ConversionResult } from "./schemas"
 
 export interface ConversionStats {
   words: number

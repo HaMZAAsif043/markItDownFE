@@ -1,6 +1,23 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+.markdown-preview > * + * { margin-top: 0.75rem; }
+.markdown-preview :is(h1, h2, h3, h4, h5, h6) { color: var(--ink); font-weight: 600; margin-top: 1.25rem; }
+.markdown-preview h1 { font-size: 1.5rem; }
+.markdown-preview h2 { font-size: 1.25rem; }
+.markdown-preview h3 { font-size: 1.125rem; }
+.markdown-preview :is(ul, ol) { padding-left: 1.5rem; }
+.markdown-preview ul { list-style: disc; }
+.markdown-preview ol { list-style: decimal; }
+.markdown-preview li > :is(ul, ol) { margin-top: 0.25rem; }
+.markdown-preview pre { overflow-x: auto; padding: 0.75rem; background: var(--paper-alt); border-radius: 0.375rem; }
+.markdown-preview code { font-family: monospace; background: var(--paper-alt); }
+.markdown-preview :not(pre) > code { padding: 0.125rem 0.25rem; border-radius: 0.25rem; }
+.markdown-preview table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+.markdown-preview :is(th, td) { padding: 0.5rem 0.75rem; border: 1px solid var(--hairline); }
+.markdown-preview th { color: var(--ink); background: var(--paper-alt); }
+.markdown-preview blockquote { border-left: 3px solid var(--hairline); padding-left: 0.75rem; }
+
 :root {
   --paper: #F7FFF7;
   --paper-alt: #EFF8EF;
