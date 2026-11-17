@@ -1,6 +1,6 @@
 # Frontend quality baseline
 
-Status: in_progress. Started 17 November 2026.
+Status: pr_open (draft). Started 17 November 2026.
 
 Branch: chore/frontend-quality-baseline, stacked on PR #1 at 904c4fb.
 The maintenance PR targets fix/safe-preview-zod-validation; retarget to main after PR #1 merges. No merge is authorized.
@@ -26,3 +26,8 @@ Verification and publication: pending.
 Theme preference storage is optional. The external-store snapshot handles hydration, same-tab toggles, cross-tab storage changes, and system preference changes without mounting-effect state updates.
 
 Business impact has not been measured. Backend risks, multi-file processing and product/privacy copy remain separate tasks.
+
+
+## Publication
+
+Implementation commit: db7f7bf. Draft PR: https://github.com/HaMZAAsif043/markItDownFE/pull/2. Base is PR #1 branch; retarget after #1 merges. No merge or manual deployment performed. Remote CI must be checked for the current head.
