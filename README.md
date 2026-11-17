@@ -101,10 +101,11 @@ validation. Chromium tests exercise rendering safety, corrupt historical
 entries, and byte-for-byte Markdown downloads. Conversion API responses are
 mocked with synthetic data; these tests do not exercise MarkItDown extraction.
 
-The reviewed baseline has unrelated repository-wide lint errors and dependency
-advisories. See the [work item](./docs/work-items/F2-safe-preview-zod-validation.md)
-for the measured check results and remaining work; do not interpret a successful
-production build as a clean lint or security audit.
+The original lint/dependency baseline has been repaired; see the
+[maintenance record](./docs/work-items/frontend-quality-baseline.md) for dated results.
+Audit results are a point-in-time dependency check, not a guarantee of application security.
+Set `PLAYWRIGHT_PORT` to an unused port if 3100 is occupied; the value is validated
+with Zod, and the runner never reuses an unknown server.
 
 ## 🏗️ Tech Stack
 

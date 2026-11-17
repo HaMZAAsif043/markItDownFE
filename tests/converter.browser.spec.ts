@@ -86,3 +86,38 @@ test("restores valid historical output while ignoring corrupt entries", async ({
   await page.getByRole("button", { name: "legacy.md 2w", exact: true }).click()
   await expect(page.locator(".markdown-preview").getByRole("heading", { name: "Legacy" })).toBeVisible()
 })
+
+
+test("theme honors a saved preference, toggles, and persists across reload", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "light" })
+  await page.addInitScript(() => { if (!localStorage.getItem("theme")) localStorage.setItem("theme", "dark") })
+  await page.goto("/")
+  await expect(page.locator("html")).toHaveClass(/dark/)
+  await page.getByRole("button", { name: "Toggle theme" }).click()
+  await expect(page.locator("html")).not.toHaveClass(/dark/)
+  expect(await page.evaluate(() => localStorage.getItem("theme"))).toBe("light")
+  await page.reload()
+  await expect(page.locator("html")).not.toHaveClass(/dark/)
+})
+
+test("theme remains usable when preference storage is unavailable", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "light" })
+  await page.addInitScript(() => {
+    const get = Storage.prototype.getItem
+    const set = Storage.prototype.setItem
+    Storage.prototype.getItem = function (key) {
+      if (key === "theme") throw new Error("Storage denied")
+      return get.call(this, key)
+    }
+    Storage.prototype.setItem = function (key, value) {
+      if (key === "theme") throw new Error("Storage denied")
+      set.call(this, key, value)
+    }
+  })
+  await page.goto("/")
+  await expect(page.locator("html")).not.toHaveClass(/dark/)
+  await page.getByRole("button", { name: "Toggle theme" }).click()
+  await expect(page.locator("html")).toHaveClass(/dark/)
+  await page.getByRole("button", { name: "Toggle theme" }).click()
+  await expect(page.locator("html")).not.toHaveClass(/dark/)
+})

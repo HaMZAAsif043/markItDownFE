@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link"
+
 import { useState } from "react"
 import { ChevronDown, Menu, X, Github } from "lucide-react"
 import { useTranslation } from "@/lib/i18n"
@@ -24,7 +26,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-paper/90 backdrop-blur-sm border-b border-hairline">
       <div className="section-container flex items-center justify-between h-14">
-<a href="/" className="flex items-center gap-2">
+<Link href="/" className="flex items-center gap-2">
   <Image
     src="/logo2.png"
     width={142}
@@ -33,7 +35,7 @@ export function Header() {
     className="object-contain"
     style={{ height: '80px', width: 'auto' }}
   />
-</a>
+</Link>
 
         <nav className="hidden md:flex items-center gap-5 text-sm">
           <a href="#tool" className="text-ink/70 hover:text-ink transition-colors">{t("nav.convert")}</a>
