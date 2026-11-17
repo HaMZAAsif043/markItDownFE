@@ -1,5 +1,9 @@
 import { defineConfig, devices } from "@playwright/test"
 
+import { z } from "zod"
+
+const port = z.coerce.number().int().min(1024).max(65535).default(3100).parse(process.env.PLAYWRIGHT_PORT)
+
 export default defineConfig({
   testDir: "./tests",
   forbidOnly: !!process.env.CI,
@@ -7,7 +11,7 @@ export default defineConfig({
   workers: 2,
   reporter: "list",
   use: {
-    baseURL: "http://127.0.0.1:3100",
+    baseURL: `http://127.0.0.1:${port}`,
     trace: "retain-on-failure",
   },
   projects: [
@@ -19,8 +23,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm run start -- --hostname 127.0.0.1 --port 3100",
-    url: "http://127.0.0.1:3100",
+    command: `npm run start -- --hostname 127.0.0.1 --port ${port}`,
+    url: `http://127.0.0.1:${port}`,
     reuseExistingServer: false,
     timeout: 60_000,
   },

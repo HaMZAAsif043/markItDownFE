@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link"
+
 import { Github } from "lucide-react"
 import { useTranslation } from "@/lib/i18n"
 import Image from "next/image"
@@ -29,7 +31,7 @@ export function FooterSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
-             <a href="/" className="flex items-center gap-2">
+             <Link href="/" className="flex items-center gap-2">
                <Image
                  src="/logo2.png"
                  width={142}
@@ -38,7 +40,7 @@ export function FooterSection() {
                  className="object-contain"
                  style={{ height: '80px', width: 'auto' }}
                />
-             </a>
+             </Link>
             </div>
             <p className="text-xs text-ink/40 leading-relaxed">{t("footer.desc")}</p>
             {/* <p className="text-xs text-ink/30 mt-3">hello@markitdown.pro</p> */}

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { ChevronLeft, ArrowRight, Upload, Zap, Copy, Check, FileText, Table, Code, FileSpreadsheet, FileJson, FileType } from "lucide-react"
+import { ChevronLeft, ArrowRight, Upload, Zap, Copy, Check, FileText, Table, Code, FileSpreadsheet, FileType } from "lucide-react"
 
 interface FAQItem {
   q: string
@@ -67,12 +67,12 @@ export function UseCasePage({ fileType, heroTitle, heroSub, whyItems, exampleInp
           <p className="font-mono text-xs text-marker uppercase tracking-wider mb-3">{fileType}</p>
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl tracking-tight text-ink max-w-2xl">{heroTitle}</h1>
           <p className="mt-4 text-base md:text-lg text-ink/60 max-w-xl leading-relaxed">{heroSub}</p>
-          <a
+          <Link
             href="/"
             className="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-ink text-paper text-sm font-medium rounded-lg hover:brightness-110 transition-all shadow-sm"
           >
             Try it free <ArrowRight className="size-4" />
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -184,12 +184,12 @@ export function UseCasePage({ fileType, heroTitle, heroSub, whyItems, exampleInp
             Ready to convert your {fileType} file?
           </h2>
           <p className="text-ink/60 mb-8">No signup, no limits. Free forever.</p>
-          <a
+          <Link
             href="/"
             className="inline-flex items-center gap-2 px-8 py-3.5 bg-ink text-paper text-sm font-medium rounded-lg hover:brightness-110 transition-all shadow-sm"
           >
             Try it free <ArrowRight className="size-4" />
-          </a>
+          </Link>
         </div>
       </section>
     </main>
